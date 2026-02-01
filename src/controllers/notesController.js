@@ -4,7 +4,7 @@ import createHttpError from 'http-errors';
 export const getAllNotes = async(req, res)=>{
   const {page = 1, perPage= 10, search, tag} =req.query;
 
-  const notesQuery = Note.find();
+  const notesQuery = Note.find({ userId: req.user._id});
 
   if (search){
     notesQuery.where({ $text: {$search: search}});
@@ -42,7 +42,10 @@ export const getNoteById = async (req, res, next) =>{
 };
 
 export const createNote = async (req, res) => {
-  const note = await Note.create(req.body);
+  const note = await Note.create({
+    ...req.body,
+    userId: req.user._id,
+  });
   res.status(201).json(note);
 };
 
@@ -70,3 +73,5 @@ if (!note){
 }
 res.status(200).json(note);
 };
+
+
