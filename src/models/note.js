@@ -25,7 +25,7 @@ noteSchema.index(
   {weights: {
     title: 10, content: 3
   },
-default_lanquage: 'english',
+default_language: 'english',
 },
 );
 
