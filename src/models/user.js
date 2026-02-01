@@ -18,7 +18,7 @@ const userSchema = new Schema(
       minlength: 8,
     },
   },
-  {timestaps: true, versionKey: false}
+  {timestamps: true, versionKey: false}
 );
 
 userSchema.pre('save', function (next){
