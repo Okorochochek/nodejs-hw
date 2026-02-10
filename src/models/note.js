@@ -1,0 +1,33 @@
+import mongoose from "mongoose";
+import {TAGS} from '../constants/tags.js';
+
+const noteSchema = mongoose.Schema({
+  title:{
+    type: String,
+    required: true,
+    trim: true
+  },
+  content:{
+    type: String,
+    default: '',
+    trim: true
+  },
+  tag:{
+    type: String,
+    enum: TAGS,
+    default: 'Todo',
+  },
+},
+{timestamps: true, versionKey: false});
+
+noteSchema.index(
+  {title: 'text', content: 'text'},
+  {weights: {
+    title: 10, content: 3
+  },
+default_language: 'english',
+},
+);
+
+
+export const Note = mongoose.model('Note', noteSchema);
